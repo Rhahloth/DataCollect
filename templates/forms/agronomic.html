@@ -69,6 +69,7 @@ block content %} {% include "navbar.html" %}
             class="form-control"
             name="plant_height"
             step="0.1"
+            required
           />
         </div>
         <div class="mb-3">
@@ -82,6 +83,7 @@ block content %} {% include "navbar.html" %}
             class="form-control"
             name="panicle_length"
             step="0.1"
+            required
           />
         </div>
         <div class="mb-3">
@@ -91,6 +93,7 @@ block content %} {% include "navbar.html" %}
             class="form-control"
             name="grain_yield"
             step="0.01"
+            required
           />
         </div>
         <div class="mb-3">
@@ -100,6 +103,7 @@ block content %} {% include "navbar.html" %}
             class="form-control"
             name="grain_weight"
             step="0.01"
+            required
           />
         </div>
         <div class="mb-3">
@@ -109,6 +113,7 @@ block content %} {% include "navbar.html" %}
             class="form-control"
             id="spikelets_total"
             name="spikelets_total"
+            required
           />
         </div>
         <div class="mb-3">
@@ -118,6 +123,7 @@ block content %} {% include "navbar.html" %}
             class="form-control"
             id="spikelets_filled"
             name="spikelets_filled"
+            required
           />
         </div>
         <div class="mb-3">
@@ -146,7 +152,7 @@ block content %} {% include "navbar.html" %}
         </div>
         <div class="mb-3">
           <label class="form-label">Observer Name</label>
-          <input type="text" class="form-control" name="observer" required />
+          <input type="text" class="form-control" name="observer" />
         </div>
         <div class="mb-3">
           <label class="form-label">Remarks</label>
