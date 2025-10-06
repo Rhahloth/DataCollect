@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, url_for, redirect
+from flask import Blueprint, render_template
 from models import (AgronomicRecord, 
                     DiseaseRecord, 
                     FieldConditionRecord, 
