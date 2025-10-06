@@ -8,6 +8,9 @@ def Kampala_time():
 # --- 1. Agronomic & Morphological ---
 class AgronomicRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
+    block = db.Column(db.String(20))             # Added
+    replication = db.Column(db.String(20))       # Added
     plot_number = db.Column(db.String(50))
     genotype = db.Column(db.String(100))
     days_heading = db.Column(db.Integer)
@@ -23,13 +26,15 @@ class AgronomicRecord(db.Model):
     observation_date = db.Column(db.Date)
     observer = db.Column(db.String(100))
     remarks = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
 
 
 # --- 2. Disease ---
 class DiseaseRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
+    block = db.Column(db.String(20))             # Added
     genotype = db.Column(db.String(100))
     replication = db.Column(db.String(20))
     plot_number = db.Column(db.String(50))
@@ -47,13 +52,17 @@ class DiseaseRecord(db.Model):
     severity_t3 = db.Column(db.Integer)
     days_first_symptom = db.Column(db.Integer)
     notes = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
 
 
 # --- 3. Field Condition ---
 class FieldConditionRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
+    block = db.Column(db.String(20))             # Added
+    genotype = db.Column(db.String(100))         # Added
+    replication = db.Column(db.String(20))       # Added
     date = db.Column(db.Date)
     location = db.Column(db.String(100))
     soil_type = db.Column(db.String(50))
@@ -64,13 +73,16 @@ class FieldConditionRecord(db.Model):
     humidity = db.Column(db.Float)
     rainfall = db.Column(db.Float)
     notes = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
 
 
 # --- 4. Greenhouse Condition ---
 class GreenhouseConditionRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
+    genotype = db.Column(db.String(100))         # Added
+    replication = db.Column(db.String(20))       # Added
     date = db.Column(db.Date)
     location = db.Column(db.String(100))
     temp_min = db.Column(db.Float)
@@ -82,13 +94,15 @@ class GreenhouseConditionRecord(db.Model):
     spray_timing = db.Column(db.String(20))
     spray_frequency = db.Column(db.Integer)
     notes = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
 
 
 # --- 5. Growth (Field) ---
 class GrowthFieldRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
+    block = db.Column(db.String(20))             # Added
     genotype = db.Column(db.String(100))
     replication = db.Column(db.String(20))
     plot_number = db.Column(db.String(50))
@@ -97,13 +111,14 @@ class GrowthFieldRecord(db.Model):
     plant_height = db.Column(db.Float)
     tillers = db.Column(db.Integer)
     notes = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
 
 
 # --- 6. Growth (Greenhouse) ---
 class GrowthGreenhouseRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
     genotype = db.Column(db.String(100))
     replication = db.Column(db.String(20))
     greenhouse_id = db.Column(db.String(50))
@@ -112,13 +127,15 @@ class GrowthGreenhouseRecord(db.Model):
     plant_height = db.Column(db.Float)
     tillers = db.Column(db.Integer)
     notes = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
 
 
 # --- 7. Yield (Field) ---
 class YieldFieldRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
+    block = db.Column(db.String(20))             # Added
     genotype = db.Column(db.String(100))
     replication = db.Column(db.String(20))
     plot_number = db.Column(db.String(50))
@@ -130,13 +147,14 @@ class YieldFieldRecord(db.Model):
     yield_plant = db.Column(db.Float)
     yield_plot = db.Column(db.Float)
     notes = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
 
 
 # --- 8. Yield (Greenhouse) ---
 class YieldGreenhouseRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    crop = db.Column(db.String(50))              # Added
     genotype = db.Column(db.String(100))
     replication = db.Column(db.String(20))
     greenhouse_id = db.Column(db.String(50))
@@ -148,8 +166,9 @@ class YieldGreenhouseRecord(db.Model):
     yield_plant = db.Column(db.Float)
     yield_tray = db.Column(db.Float)
     notes = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default = Kampala_time)
+    created_at = db.Column(db.DateTime, default=Kampala_time)
     synced = db.Column(db.Boolean, default=False, nullable=False)
+
 
 def create_tables():
     """Create all tables if they don’t exist."""

@@ -31,17 +31,45 @@ Form{% endblock %} {% block content %} {% include "navbar.html" %}
       <!-- Step 1 -->
       <div class="form-step active">
         <h5 class="mb-3">Step 1: General Info</h5>
+
+        <div class="mb-3">
+          <label class="form-label">Crop</label>
+          <select class="form-control" name="crop" required>
+            <option value="">-- Select Crop --</option>
+            {% for c in crops %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
         <div class="mb-3">
           <label class="form-label">Genotype Code / Name</label>
-          <input type="text" class="form-control" name="genotype" required />
+          <select class="form-control" name="genotype" required>
+            <option value="">-- Select Genotype --</option>
+            {% for g in genotypes %}
+            <option value="{{ g }}">{{ g }}</option>
+            {% endfor %}
+          </select>
         </div>
+
         <div class="mb-3">
           <label class="form-label">Replication</label>
-          <input type="text" class="form-control" name="replication" />
+          <select class="form-control" name="replication" required>
+            <option value="">-- Select Replication --</option>
+            {% for r in replications %}
+            <option value="{{ r }}">{{ r }}</option>
+            {% endfor %}
+          </select>
         </div>
+
         <div class="mb-3">
           <label class="form-label">Pot / Tray Number or Greenhouse ID</label>
-          <input type="text" class="form-control" name="greenhouse_id" />
+          <input
+            type="text"
+            class="form-control"
+            name="greenhouse_id"
+            required
+          />
         </div>
       </div>
 

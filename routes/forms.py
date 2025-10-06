@@ -41,11 +41,25 @@ def save_and_sync(record):
         return True
     return False
 
+def generate_dropdown_list(prefix: str, count: int):
+    """Generate dropdown options like 'Genotype 1'...'Genotype 90'."""
+    return [f"{prefix} {i}" for i in range(1, count + 1)]
+
 @bp.route("/agronomic", methods=["GET", "POST"])
 def agronomic():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    blocks = generate_dropdown_list("Block", 90)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = AgronomicRecord(
+                crop=request.form.get("crop"),
+                block=request.form.get("block"),
+                replication=request.form.get("replication"),
                 plot_number=request.form.get("plot_number"),
                 genotype=request.form.get("genotype"),
                 days_heading=int(request.form.get("days_heading")) if request.form.get("days_heading") else None,
@@ -64,32 +78,48 @@ def agronomic():
                 remarks=request.form.get("remarks"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
-            flash("Agronomic data saved!", "success")
 
-            # Sync to Google Sheets
+            # Step 4: Sync with Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
-
         except Exception as e:
+            # Step 5: Handle errors
             db.session.rollback()
             flash(f"Error saving data: {e}", "danger")
 
+        # Step 6: Redirect
         return redirect(url_for("main.dashboard"))
 
-    return render_template("forms/agronomic.html")
-
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/agronomic.html",
+        crops=crops,
+        blocks=blocks,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 # --- Disease Form ---
 @bp.route("/disease", methods=["GET", "POST"])
 def disease():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    blocks = generate_dropdown_list("Block", 90)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = DiseaseRecord(
+                crop=request.form.get("crop"),
+                block=request.form.get("block"),
                 genotype=request.form.get("genotype"),
                 replication=request.form.get("replication"),
                 plot_number=request.form.get("plot_number"),
@@ -109,28 +139,50 @@ def disease():
                 notes=request.form.get("notes"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
 
-            # Sync to Google Sheets
+            # Step 4: Sync with Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
+            # Step 5: Confirmation and redirect
             flash("Disease data saved!", "success")
             return redirect(url_for("main.dashboard"))
+
         except Exception as e:
+            # Step 6: Handle errors
             db.session.rollback()
             flash(f"Error saving disease record: {e}", "danger")
 
-    return render_template("forms/disease.html")
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/disease.html",
+        crops=crops,
+        blocks=blocks,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 @bp.route("/field", methods=["GET", "POST"])
 def field_condition():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    blocks = generate_dropdown_list("Block", 90)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = FieldConditionRecord(
+                crop=request.form.get("crop"),
+                block=request.form.get("block"),
+                genotype=request.form.get("genotype"),
+                replication=request.form.get("replication"),
                 date=datetime.strptime(request.form.get("date"), "%Y-%m-%d").date()
                      if request.form.get("date") else None,
                 location=request.form.get("location"),
@@ -144,29 +196,49 @@ def field_condition():
                 notes=request.form.get("notes"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
 
-            # Sync to Google Sheets
+            # Step 4: Sync to Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
+            # Step 5: Confirm and redirect
             flash("Field condition data saved!", "success")
             return redirect(url_for("main.dashboard"))
+
         except Exception as e:
+            # Step 6: Handle errors
             db.session.rollback()
             flash(f"Error saving field condition: {e}", "danger")
 
-    return render_template("forms/field_condition.html")
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/field_condition.html",
+        crops=crops,
+        blocks=blocks,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 # --- Greenhouse Condition Form ---
 @bp.route("/greenhouse", methods=["GET", "POST"])
 def greenhouse_condition():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = GreenhouseConditionRecord(
+                crop=request.form.get("crop"),
+                genotype=request.form.get("genotype"),
+                replication=request.form.get("replication"),
                 date=datetime.strptime(request.form.get("date"), "%Y-%m-%d").date()
                      if request.form.get("date") else None,
                 location=request.form.get("location"),
@@ -181,29 +253,48 @@ def greenhouse_condition():
                 notes=request.form.get("notes"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
 
-            # Sync to Google Sheets
+            # Step 4: Sync to Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
+            # Step 5: Confirm and redirect
             flash("Greenhouse condition data saved!", "success")
             return redirect(url_for("main.dashboard"))
+
         except Exception as e:
+            # Step 6: Handle errors
             db.session.rollback()
             flash(f"Error saving greenhouse condition: {e}", "danger")
 
-    return render_template("forms/greenhouse_condition.html")
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/greenhouse_condition.html",
+        crops=crops,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 # --- Growth (Field) Form ---
 @bp.route("/growth_field", methods=["GET", "POST"])
 def growth_field():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    blocks = generate_dropdown_list("Block", 90)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = GrowthFieldRecord(
+                crop=request.form.get("crop"),
+                block=request.form.get("block"),
                 genotype=request.form.get("genotype"),
                 replication=request.form.get("replication"),
                 plot_number=request.form.get("plot_number"),
@@ -214,29 +305,47 @@ def growth_field():
                 notes=request.form.get("notes"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
 
-            # Sync to Google Sheets
+            # Step 4: Sync to Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
+            # Step 5: Confirm and redirect
             flash("Growth (Field) data saved!", "success")
             return redirect(url_for("main.dashboard"))
+
         except Exception as e:
+            # Step 6: Handle errors
             db.session.rollback()
             flash(f"Error saving Growth (Field) record: {e}", "danger")
 
-    return render_template("forms/growth_field.html")
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/growth_field.html",
+        crops=crops,
+        blocks=blocks,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 # --- Growth (Greenhouse) Form ---
 @bp.route("/growth_greenhouse", methods=["GET", "POST"])
 def growth_greenhouse():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = GrowthGreenhouseRecord(
+                crop=request.form.get("crop"),
                 genotype=request.form.get("genotype"),
                 replication=request.form.get("replication"),
                 greenhouse_id=request.form.get("greenhouse_id"),
@@ -247,29 +356,48 @@ def growth_greenhouse():
                 notes=request.form.get("notes"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
 
-            # Sync to Google Sheets
+            # Step 4: Sync to Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
+            # Step 5: Confirm and redirect
             flash("Growth (Greenhouse) data saved!", "success")
             return redirect(url_for("main.dashboard"))
+
         except Exception as e:
+            # Step 6: Handle errors
             db.session.rollback()
             flash(f"Error saving Growth (Greenhouse) record: {e}", "danger")
 
-    return render_template("forms/growth_greenhouse.html")
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/growth_greenhouse.html",
+        crops=crops,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 # --- Yield (Field) Form ---
 @bp.route("/yield_field", methods=["GET", "POST"])
 def yield_field():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    blocks = generate_dropdown_list("Block", 90)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = YieldFieldRecord(
+                crop=request.form.get("crop"),
+                block=request.form.get("block"),
                 genotype=request.form.get("genotype"),
                 replication=request.form.get("replication"),
                 plot_number=request.form.get("plot_number"),
@@ -283,29 +411,47 @@ def yield_field():
                 notes=request.form.get("notes"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
 
-            # Sync to Google Sheets
+            # Step 4: Sync to Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
+            # Step 5: Confirm and redirect
             flash("Yield (Field) data saved!", "success")
             return redirect(url_for("main.dashboard"))
+
         except Exception as e:
+            # Step 6: Handle errors
             db.session.rollback()
             flash(f"Error saving Yield (Field) record: {e}", "danger")
 
-    return render_template("forms/yield_field.html")
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/yield_field.html",
+        crops=crops,
+        blocks=blocks,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 # --- Yield (Greenhouse) Form ---
 @bp.route("/yield_greenhouse", methods=["GET", "POST"])
 def yield_greenhouse():
+    # Step 1: Generate dropdown lists
+    crops = generate_dropdown_list("Crop", 5)
+    genotypes = generate_dropdown_list("Genotype", 90)
+    replications = generate_dropdown_list("Replication", 3)
+
     if request.method == "POST":
         try:
+            # Step 2: Create record from form data
             record = YieldGreenhouseRecord(
+                crop=request.form.get("crop"),
                 genotype=request.form.get("genotype"),
                 replication=request.form.get("replication"),
                 greenhouse_id=request.form.get("greenhouse_id"),
@@ -319,22 +465,32 @@ def yield_greenhouse():
                 notes=request.form.get("notes"),
             )
 
+            # Step 3: Save to database
             db.session.add(record)
             db.session.commit()
 
-            # Sync to Google Sheets
+            # Step 4: Sync to Google Sheets
             if save_and_sync(record):
                 flash("Data saved & synced!", "success")
             else:
                 flash("Data saved (pending sync)", "warning")
 
+            # Step 5: Confirm and redirect
             flash("Yield (Greenhouse) data saved!", "success")
             return redirect(url_for("main.dashboard"))
+
         except Exception as e:
+            # Step 6: Handle errors
             db.session.rollback()
             flash(f"Error saving Yield (Greenhouse) record: {e}", "danger")
 
-    return render_template("forms/yield_greenhouse.html")
+    # Step 7: Render template with dropdown data
+    return render_template(
+        "forms/yield_greenhouse.html",
+        crops=crops,
+        genotypes=genotypes,
+        replications=replications
+    )
 
 @bp.route("/sync_all", methods=["POST"])
 def sync_all():

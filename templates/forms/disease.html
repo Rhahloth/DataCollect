@@ -35,14 +35,47 @@ block content %} {% include "navbar.html" %}
       <!-- Step 1 -->
       <div class="form-step active">
         <h5 class="mb-3">Step 1: Basic Info</h5>
+
         <div class="mb-3">
-          <label class="form-label">Genotype Code / Name</label>
-          <input type="text" class="form-control" name="genotype" required />
+          <label class="form-label">Crop</label>
+          <select class="form-control" name="crop" required>
+            <option value="">-- Select Crop --</option>
+            {% for c in crops %}
+            <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
+          </select>
         </div>
+
+        <div class="mb-3">
+          <label class="form-label">Block</label>
+          <select class="form-control" name="block" required>
+            <option value="">-- Select Block --</option>
+            {% for b in blocks %}
+            <option value="{{ b }}">{{ b }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
         <div class="mb-3">
           <label class="form-label">Replication</label>
-          <input type="text" class="form-control" name="replication" required />
+          <select class="form-control" name="replication" required>
+            <option value="">-- Select Replication --</option>
+            {% for r in replications %}
+            <option value="{{ r }}">{{ r }}</option>
+            {% endfor %}
+          </select>
         </div>
+
+        <div class="mb-3">
+          <label class="form-label">Genotype Code / Name</label>
+          <select class="form-control" name="genotype" required>
+            <option value="">-- Select Genotype --</option>
+            {% for g in genotypes %}
+            <option value="{{ g }}">{{ g }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
         <div class="mb-3">
           <label class="form-label">Plot Number / ID</label>
           <input type="text" class="form-control" name="plot_number" required />
