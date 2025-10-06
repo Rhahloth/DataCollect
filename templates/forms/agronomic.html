@@ -1,0 +1,174 @@
+{% extends "base.html" %} {% block title %}Agronomic Data Form{% endblock %} {%
+block content %} {% include "navbar.html" %}
+
+<div class="card shadow-lg border-0 rounded-4">
+  <!-- Card Header -->
+  <div
+    class="card-header d-flex justify-content-between align-items-center bg-white rounded-top-4 border-bottom"
+    style="color: #2c3e50"
+  >
+    <div>
+      <h4 class="mb-0 text-success">Agronomic & Morphological Data</h4>
+      <small class="text-muted">Record agronomic field measurements</small>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <!-- Progress Steps -->
+    <div class="progress mb-4" style="height: 20px">
+      <div
+        id="progressBar"
+        class="progress-bar bg-success"
+        role="progressbar"
+        style="width: 0%"
+      >
+        Step <span id="stepNumber">1</span> of 3
+      </div>
+    </div>
+
+    <form method="POST" id="wizardForm">
+      <!-- Step 1 -->
+      <div class="form-step active">
+        <h5 class="mb-3">Step 1: Basic Info & Growth</h5>
+        <div class="mb-3">
+          <label class="form-label">Plot Number</label>
+          <input type="text" class="form-control" name="plot_number" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Genotype ID / Name</label>
+          <input type="text" class="form-control" name="genotype" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Days to Heading</label>
+          <input
+            type="number"
+            class="form-control"
+            name="days_heading"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Days to Maturity</label>
+          <input
+            type="number"
+            class="form-control"
+            name="days_maturity"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 2: Plant Metrics & Yield</h5>
+        <div class="mb-3">
+          <label class="form-label">Plant Height (cm)</label>
+          <input
+            type="number"
+            class="form-control"
+            name="plant_height"
+            step="0.1"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">No. of Tillers</label>
+          <input type="number" class="form-control" name="tillers" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Panicle Length (cm)</label>
+          <input
+            type="number"
+            class="form-control"
+            name="panicle_length"
+            step="0.1"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Grain Yield (g)</label>
+          <input
+            type="number"
+            class="form-control"
+            name="grain_yield"
+            step="0.01"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">1000-Grain Weight (g)</label>
+          <input
+            type="number"
+            class="form-control"
+            name="grain_weight"
+            step="0.01"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Total Spikelets</label>
+          <input
+            type="number"
+            class="form-control"
+            id="spikelets_total"
+            name="spikelets_total"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Filled Spikelets</label>
+          <input
+            type="number"
+            class="form-control"
+            id="spikelets_filled"
+            name="spikelets_filled"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Spikelet Fertility (%)</label>
+          <input
+            type="number"
+            class="form-control"
+            id="fertility"
+            name="fertility"
+            readonly
+          />
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 3: Data Collector Info</h5>
+        <div class="mb-3">
+          <label class="form-label">Observation Date</label>
+          <input
+            type="date"
+            class="form-control"
+            name="observation_date"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Observer Name</label>
+          <input type="text" class="form-control" name="observer" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Remarks</label>
+          <textarea class="form-control" name="remarks" rows="2"></textarea>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          type="button"
+          id="prevBtn"
+          class="btn btn-outline-secondary rounded-pill"
+          disabled
+        >
+          ← Previous
+        </button>
+        <button type="button" id="nextBtn" class="btn btn-primary rounded-pill">
+          Next →
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

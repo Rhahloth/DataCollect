@@ -1,0 +1,217 @@
+{% extends "base.html" %} {% block title %}Disease Data Form{% endblock %} {%
+block content %} {% include "navbar.html" %}
+
+<div class="card shadow-lg border-0 rounded-4">
+  <!-- Header -->
+  <div
+    class="card-header d-flex justify-content-between align-items-center bg-white rounded-top-4 border-bottom"
+    style="color: #2c3e50"
+  >
+    <div>
+      <h4 class="mb-0" style="color: #16a085; font-weight: 600">
+        Disease Data Collection
+      </h4>
+      <small class="fw-medium text-muted">
+        Record observations and incidence of plant diseases
+      </small>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body">
+    <!-- Progress -->
+    <div class="progress mb-4" style="height: 20px">
+      <div
+        id="progressBar"
+        class="progress-bar bg-success"
+        role="progressbar"
+        style="width: 0%"
+      >
+        Step <span id="stepNumber">1</span> of 3
+      </div>
+    </div>
+
+    <form method="POST" id="wizardForm">
+      <!-- Step 1 -->
+      <div class="form-step active">
+        <h5 class="mb-3">Step 1: Basic Info</h5>
+        <div class="mb-3">
+          <label class="form-label">Genotype Code / Name</label>
+          <input type="text" class="form-control" name="genotype" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Replication</label>
+          <input type="text" class="form-control" name="replication" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Plot Number / ID</label>
+          <input type="text" class="form-control" name="plot_number" required />
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 2: Timepoints T1–T3</h5>
+
+        <!-- T1 -->
+        <div class="row mb-2">
+          <div class="col">
+            <label class="form-label">Total Panicles (T1)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="panicles_t1"
+              name="panicles_t1"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Infected (T1)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="infected_t1"
+              name="infected_t1"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Incidence % (T1)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="incidence_t1"
+              name="incidence_t1"
+              readonly
+            />
+          </div>
+        </div>
+
+        <!-- T2 -->
+        <div class="row mb-2">
+          <div class="col">
+            <label class="form-label">Total Panicles (T2)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="panicles_t2"
+              name="panicles_t2"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Infected (T2)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="infected_t2"
+              name="infected_t2"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Incidence % (T2)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="incidence_t2"
+              name="incidence_t2"
+              readonly
+            />
+          </div>
+        </div>
+
+        <!-- T3 -->
+        <div class="row">
+          <div class="col">
+            <label class="form-label">Total Panicles (T3)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="panicles_t3"
+              name="panicles_t3"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Infected (T3)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="infected_t3"
+              name="infected_t3"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Incidence % (T3)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="incidence_t3"
+              name="incidence_t3"
+              readonly
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 3: Severity & Notes</h5>
+        <div class="row mb-3">
+          <div class="col">
+            <label class="form-label">Severity T1 (0–9)</label>
+            <input
+              type="number"
+              class="form-control"
+              name="severity_t1"
+              min="0"
+              max="9"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Severity T2 (0–9)</label>
+            <input
+              type="number"
+              class="form-control"
+              name="severity_t2"
+              min="0"
+              max="9"
+            />
+          </div>
+          <div class="col">
+            <label class="form-label">Severity T3 (0–9)</label>
+            <input
+              type="number"
+              class="form-control"
+              name="severity_t3"
+              min="0"
+              max="9"
+            />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Days to First Symptom</label>
+          <input type="number" class="form-control" name="days_first_symptom" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Additional Notes</label>
+          <textarea class="form-control" name="notes" rows="3"></textarea>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          type="button"
+          id="prevBtn"
+          class="btn btn-outline-secondary rounded-pill"
+          disabled
+        >
+          ← Previous
+        </button>
+        <button type="button" id="nextBtn" class="btn btn-primary rounded-pill">
+          Next →
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='wizard.js') }}"></script>
+{% endblock %}

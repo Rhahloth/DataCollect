@@ -1,0 +1,155 @@
+{% extends "base.html" %} {% block title %}Field Condition Data Form{% endblock
+%} {% block content %} {% include "navbar.html" %}
+
+<div class="card shadow-lg border-0 rounded-4">
+  <!-- Header -->
+  <div
+    class="card-header d-flex justify-content-between align-items-center bg-white rounded-top-4 border-bottom"
+    style="color: #2c3e50"
+  >
+    <div>
+      <h4 class="mb-0 text-success">Field Condition Data Collection</h4>
+      <small class="text-muted">Environmental and Soil Measurements</small>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body">
+    <!-- Progress -->
+    <div class="progress mb-4" style="height: 20px">
+      <div
+        id="progressBar"
+        class="progress-bar bg-success"
+        role="progressbar"
+        style="width: 0%"
+      >
+        Step <span id="stepNumber">1</span> of 4
+      </div>
+    </div>
+
+    <form method="POST" id="wizardForm">
+      <!-- Step 1 -->
+      <div class="form-step active">
+        <h5 class="mb-3">Step 1: Basic Details</h5>
+        <div class="mb-3">
+          <label class="form-label">Date</label>
+          <input type="date" class="form-control" name="date" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Location / Field ID</label>
+          <input type="text" class="form-control" name="location" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Soil Type</label>
+          <input type="text" class="form-control" name="soil_type" required />
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 2: Soil Fertility</h5>
+        <div class="mb-3">
+          <label class="form-label">Soil Fertility Status</label>
+          <select class="form-select" name="fertility_status" required>
+            <option value="">-- Select --</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <small class="form-text text-muted">
+            Or enter lab values in notes.
+          </small>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 3: Weather Conditions</h5>
+        <div class="row g-3">
+          <div class="col-12 col-md-4">
+            <label class="form-label">Min Temperature (°C)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="temp_min"
+              name="temp_min"
+              step="0.1"
+            />
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label">Max Temperature (°C)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="temp_max"
+              name="temp_max"
+              step="0.1"
+            />
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label">Avg Temperature (°C)</label>
+            <input
+              type="number"
+              class="form-control"
+              id="temp_avg"
+              name="temp_avg"
+              step="0.1"
+              readonly
+            />
+          </div>
+        </div>
+
+        <div class="row g-3 mt-2">
+          <div class="col-12 col-md-6">
+            <label class="form-label">Relative Humidity (%)</label>
+            <input
+              type="number"
+              class="form-control"
+              name="humidity"
+              min="0"
+              max="100"
+              step="0.1"
+            />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Rainfall (mm)</label>
+            <input
+              type="number"
+              class="form-control"
+              name="rainfall"
+              min="0"
+              step="0.1"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 4: Notes</h5>
+        <div class="mb-3">
+          <label class="form-label">Additional Notes / Observations</label>
+          <textarea class="form-control" name="notes" rows="3"></textarea>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          type="button"
+          id="prevBtn"
+          class="btn btn-outline-secondary rounded-pill"
+          disabled
+        >
+          ← Previous
+        </button>
+        <button type="button" id="nextBtn" class="btn btn-primary rounded-pill">
+          Next →
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='wizard.js') }}"></script>
+{% endblock %}

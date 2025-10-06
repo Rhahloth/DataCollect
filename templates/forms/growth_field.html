@@ -1,0 +1,122 @@
+{% extends "base.html" %} {% block title %}Growth Component (Field) Data Form{%
+endblock %} {% block content %} {% include "navbar.html" %}
+
+<div class="card shadow-lg border-0 rounded-4">
+  <!-- Card Header -->
+  <div
+    class="card-header d-flex justify-content-between align-items-center bg-white rounded-top-4 border-bottom"
+    style="color: #2c3e50"
+  >
+    <div>
+      <h4 class="mb-0 text-success">Growth Component (Field) Data</h4>
+      <small class="text-muted">Phenology & Plant Growth Traits</small>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <!-- Progress Bar -->
+    <div class="progress mb-4" style="height: 20px">
+      <div
+        id="progressBar"
+        class="progress-bar bg-success"
+        role="progressbar"
+        style="width: 0%"
+      >
+        Step <span id="stepNumber">1</span> of 4
+      </div>
+    </div>
+
+    <form method="POST" id="wizardForm">
+      <!-- Step 1 -->
+      <div class="form-step active">
+        <h5 class="mb-3">Step 1: General Info</h5>
+        <div class="mb-3">
+          <label class="form-label">Genotype Code / Name</label>
+          <input type="text" class="form-control" name="genotype" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Replication</label>
+          <input type="text" class="form-control" name="replication" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Plot Number / ID</label>
+          <input type="text" class="form-control" name="plot_number" />
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 2: Flowering & Maturity</h5>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label">Days to 50% Flowering</label>
+            <input
+              type="number"
+              class="form-control"
+              name="days_flowering"
+              min="0"
+            />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Days to Maturity</label>
+            <input
+              type="number"
+              class="form-control"
+              name="days_maturity"
+              min="0"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 3: Plant Metrics</h5>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label">Plant Height (cm)</label>
+            <input
+              type="number"
+              class="form-control"
+              name="plant_height"
+              step="0.1"
+              min="0"
+            />
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Number of Tillers per Plant</label>
+            <input type="number" class="form-control" name="tillers" min="0" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="form-step">
+        <h5 class="mb-3">Step 4: Notes</h5>
+        <div class="mb-3">
+          <label class="form-label">Additional Observations / Notes</label>
+          <textarea class="form-control" name="notes" rows="3"></textarea>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          type="button"
+          id="prevBtn"
+          class="btn btn-outline-secondary rounded-pill"
+          disabled
+        >
+          ← Previous
+        </button>
+        <button type="button" id="nextBtn" class="btn btn-primary rounded-pill">
+          Next →
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='wizard.js') }}"></script>
+{% endblock %}

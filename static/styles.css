@@ -1,0 +1,151 @@
+/* Form container */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Form labels */
+.form-label {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Input styling */
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    transition: all 0.2s ease-in-out;
+}
+.form-control:focus {
+    border-color: #1abc9c;
+    box-shadow: 0 0 5px rgba(26, 188, 156, 0.4);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #1abc9c;
+    border-color: #16a085;
+}
+.btn-primary:hover {
+    background-color: #16a085;
+    border-color: #138d75;
+}
+
+.form-step {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Overview Banner */
+.overview-banner {
+    background: #f8f9fa;
+    border: 1px solid #e1e5eb;
+    border-radius: 0.75rem;
+}
+
+.overview-banner h5 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.overview-banner small {
+    font-size: 0.9rem;
+}
+
+/* Section Titles */
+.section-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #232528
+}
+
+/* Metric Grid Layout */
+.metrics-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.metric-tile {
+    background: #fff;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    color: inherit;
+    display: block;
+}
+
+.metric-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.metric-tile span {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.metric-tile h3 {
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Recent Feed */
+.recent-feed .list-group-item {
+    border: none;
+    border-radius: 0.75rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.recent-feed .list-group-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+     
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1201px) {
+    .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %}Welcome{% endblock %} {% block
+content %}
+<div
+  class="d-flex flex-column align-items-center justify-content-center"
+  style="min-height: 80vh"
+>
+  <div class="text-center">
+    <h1 class="mb-3">DataCollect</h1>
+    <p class="lead mb-4">Welcome!</p>
+
+    <a
+      href="{{ url_for('main.dashboard') }}"
+      class="btn btn-lg btn-primary me-3"
+    >
+      Go to Dashboard
+    </a>
+
+    <!-- Dropdown for Forms -->
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-lg btn-outline-success dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Start Entering Data
+      </button>
+      <ul class="dropdown-menu shadow">
+        <li>
+          <a class="dropdown-item" href="{{ url_for('forms.agronomic') }}"
+            >Agronomic</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" href="{{ url_for('forms.disease') }}"
+            >Disease</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" href="{{ url_for('forms.field_condition') }}"
+            >Field Condition</a
+          >
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            href="{{ url_for('forms.greenhouse_condition') }}"
+            >Greenhouse Condition</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" href="{{ url_for('forms.growth_field') }}"
+            >Growth (Field)</a
+          >
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            href="{{ url_for('forms.growth_greenhouse') }}"
+            >Growth (Greenhouse)</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item" href="{{ url_for('forms.yield_field') }}"
+            >Yield (Field)</a
+          >
+        </li>
+        <li>
+          <a
+            class="dropdown-item"
+            href="{{ url_for('forms.yield_greenhouse') }}"
+            >Yield (Greenhouse)</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

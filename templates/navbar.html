@@ -1,0 +1,118 @@
+<nav
+  class="navbar navbar-expand-lg sticky-top shadow-sm"
+  style="background: linear-gradient(90deg, #0f9b8e, #1abc9c, #20c997)"
+>
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a
+      class="navbar-brand fw-bold text-white"
+      href="{{ url_for('main.dashboard') }}"
+      style="letter-spacing: 1px; font-size: 1.3rem"
+    >
+      DataCollect
+    </a>
+
+    <!-- Mobile toggle -->
+    <button
+      class="navbar-toggler text-white border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarContent"
+      aria-controls="navbarContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Forms dropdown -->
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle text-white fw-semibold"
+            href="#"
+            id="formsDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Forms
+          </a>
+          <ul
+            class="dropdown-menu shadow-sm border-0 rounded-3"
+            aria-labelledby="formsDropdown"
+          >
+            <li>
+              <a class="dropdown-item" href="{{ url_for('forms.agronomic') }}"
+                >Agronomic</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{{ url_for('forms.disease') }}"
+                >Disease</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{{ url_for('forms.field_condition') }}"
+                >Field Condition</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{{ url_for('forms.greenhouse_condition') }}"
+                >Greenhouse Condition</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{{ url_for('forms.growth_field') }}"
+                >Growth (Field)</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{{ url_for('forms.growth_greenhouse') }}"
+                >Growth (Greenhouse)</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="{{ url_for('forms.yield_field') }}"
+                >Yield (Field)</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="{{ url_for('forms.yield_greenhouse') }}"
+                >Yield (Greenhouse)</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Right-aligned buttons -->
+      <div class="d-flex gap-2">
+        <a
+          href="{{ url_for('forms.download_all') }}"
+          class="btn btn-outline-light fw-semibold"
+        >
+          Download All Data
+        </a>
+        <a
+          href="{{ url_for('main.dashboard') }}"
+          class="btn btn-warning fw-bold"
+        >
+          Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

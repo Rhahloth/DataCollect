@@ -1,0 +1,111 @@
+{% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
+content %} {% include "navbar.html" %}
+
+<!-- Hero Banner -->
+{% set total_unsynced = unsynced_counts.values()|sum %}
+<div
+  class="overview-banner d-flex justify-content-between align-items-center p-3 mb-4 rounded-3 shadow-sm"
+>
+  <div>
+    <h5 class="fw-bold mb-1 text-dark">{{ total_genotypes or 0 }} Genotypes</h5>
+    <small class="text-muted">
+      {{ total_records or 0 }} total records • Last Entry: {{ last_entry or "No
+      entries yet" }}
+    </small>
+  </div>
+  <div>
+    {% if total_unsynced > 0 %}
+    <button id="syncBtn" class="btn btn-sm btn-warning fw-semibold">
+      Sync ({{ total_unsynced }})
+    </button>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Form Counts -->
+<h5 class="section-title">Form Counts</h5>
+<div class="metrics-grid">
+  <a
+    href="{{ url_for('forms.agronomic') }}"
+    class="metric-tile success text-decoration-none"
+  >
+    <span>Agronomic</span>
+    <h3>{{ agronomic_count }}</h3>
+  </a>
+  <a
+    href="{{ url_for('forms.disease') }}"
+    class="metric-tile danger text-decoration-none"
+  >
+    <span>Disease</span>
+    <h3>{{ disease_count }}</h3>
+  </a>
+  <a
+    href="{{ url_for('forms.field_condition') }}"
+    class="metric-tile info text-decoration-none"
+  >
+    <span>Field Condition</span>
+    <h3>{{ field_count }}</h3>
+  </a>
+  <a
+    href="{{ url_for('forms.greenhouse_condition') }}"
+    class="metric-tile warning text-decoration-none"
+  >
+    <span>Greenhouse Condition</span>
+    <h3>{{ greenhouse_count }}</h3>
+  </a>
+</div>
+
+<!-- Growth & Yield -->
+<h5 class="section-title mt-4">Growth & Yield</h5>
+<div class="metrics-grid">
+  <a
+    href="{{ url_for('forms.growth_field') }}"
+    class="metric-tile primary text-decoration-none"
+  >
+    <span>Growth (Field)</span>
+    <h3>{{ growth_field_count }}</h3>
+  </a>
+  <a
+    href="{{ url_for('forms.growth_greenhouse') }}"
+    class="metric-tile primary text-decoration-none"
+  >
+    <span>Growth (Greenhouse)</span>
+    <h3>{{ growth_greenhouse_count }}</h3>
+  </a>
+  <a
+    href="{{ url_for('forms.yield_field') }}"
+    class="metric-tile dark text-decoration-none"
+  >
+    <span>Yield (Field)</span>
+    <h3>{{ yield_field_count }}</h3>
+  </a>
+  <a
+    href="{{ url_for('forms.yield_greenhouse') }}"
+    class="metric-tile dark text-decoration-none"
+  >
+    <span>Yield (Greenhouse)</span>
+    <h3>{{ yield_greenhouse_count }}</h3>
+  </a>
+</div>
+
+<!-- Recent Entries -->
+<h5 class="section-title mt-5">Recent Entries</h5>
+<ul class="list-group shadow-sm recent-feed">
+  {% if recent_entries %} {% for entry in recent_entries %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <div>
+      <span class="badge bg-success me-2">{{ entry.form_type }}</span>
+      <strong>{{ entry.identifier }}</strong>
+      <span class="text-muted small">by {{ entry.observer }}</span>
+    </div>
+    <small class="text-muted">{{ entry.date }}</small>
+  </li>
+  {% endfor %} {% else %}
+  <li class="list-group-item text-center text-muted">
+    No entries recorded yet.
+  </li>
+  {% endif %}
+</ul>
+
+<script src="{{ url_for('static', filename='sync.js') }}"></script>
+{% endblock %}
