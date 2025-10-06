@@ -51,7 +51,13 @@ endblock %} {% block content %} {% include "navbar.html" %}
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">Number of Panicles per Plant</label>
-            <input type="number" class="form-control" name="panicles" min="0" />
+            <input
+              type="number"
+              class="form-control"
+              name="panicles"
+              min="0"
+              required
+            />
           </div>
           <div class="col-md-6">
             <label class="form-label">Panicle Length (cm)</label>
@@ -61,6 +67,7 @@ endblock %} {% block content %} {% include "navbar.html" %}
               name="panicle_length"
               min="0"
               step="0.1"
+              required
             />
           </div>
         </div>
@@ -77,6 +84,7 @@ endblock %} {% block content %} {% include "navbar.html" %}
               class="form-control"
               name="filled_grains"
               min="0"
+              required
             />
           </div>
           <div class="col-md-6">
@@ -103,6 +111,7 @@ endblock %} {% block content %} {% include "navbar.html" %}
               name="grain_weight"
               min="0"
               step="0.01"
+              required
             />
           </div>
           <div class="col-md-4">
@@ -113,6 +122,7 @@ endblock %} {% block content %} {% include "navbar.html" %}
               name="yield_plant"
               min="0"
               step="0.01"
+              required
             />
           </div>
           <div class="col-md-4">
@@ -123,6 +133,7 @@ endblock %} {% block content %} {% include "navbar.html" %}
               name="yield_plot"
               min="0"
               step="0.01"
+              required
             />
           </div>
         </div>

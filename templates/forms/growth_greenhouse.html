@@ -37,11 +37,16 @@ Form{% endblock %} {% block content %} {% include "navbar.html" %}
         </div>
         <div class="mb-3">
           <label class="form-label">Replication</label>
-          <input type="text" class="form-control" name="replication" />
+          <input type="text" class="form-control" name="replication" required />
         </div>
         <div class="mb-3">
           <label class="form-label">Pot / Tray Number or Greenhouse ID</label>
-          <input type="text" class="form-control" name="greenhouse_id" />
+          <input
+            type="text"
+            class="form-control"
+            name="greenhouse_id"
+            required
+          />
         </div>
       </div>
 
@@ -82,11 +87,18 @@ Form{% endblock %} {% block content %} {% include "navbar.html" %}
               name="plant_height"
               step="0.1"
               min="0"
+              required
             />
           </div>
           <div class="col-12 col-md-6">
             <label class="form-label">Number of Tillers per Plant</label>
-            <input type="number" class="form-control" name="tillers" min="0" />
+            <input
+              type="number"
+              class="form-control"
+              name="tillers"
+              min="0"
+              required
+            />
           </div>
         </div>
       </div>
