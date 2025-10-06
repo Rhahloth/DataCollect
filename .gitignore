@@ -1,16 +1,8 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pkl
 *.sqlite3
 
 # Virtual env
-venv/
-env/
-.venv/
-ENV/
 .env
 
 # IDEs
@@ -18,20 +10,9 @@ ENV/
 .idea/
 *.swp
 
-# OS
-.DS_Store
-Thumbs.db
-
 # Google credentials & configs
 credentials.json
-*.key.json
-config.json
-config.py
-
-# Logs
-*.log
 
 # Cache / compiled
-*.egg-info/
 dist/
 build/
